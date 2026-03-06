@@ -1,0 +1,91 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Home | Eric Fagan">
+
+<section class="home-intro">
+  <div class="intro-container">
+
+    <!-- Profile Image -->
+    <div class="intro-image">
+      <img src="/profile.jpg" alt="Eric Fagan">
+    </div>
+
+    <!-- Intro Text -->
+    <div class="intro-text">
+      <p>
+        Hi and welcome to my website! I am <span class="highlight">Eric Fagan</span>, a junior at the College of 
+        <span class="highlight">William & Mary</span>. Here, you can learn a little bit 
+        <a href="/about" target="_blank" rel="noopener noreferrer" class="highlight-link">about me</a>, 
+        check out my current 
+        <a href="/resume" target="_blank" rel="noopener noreferrer" class="highlight-link">resume</a>, 
+        or get in touch through 
+        <a href="/contact" target="_blank" rel="noopener noreferrer" class="highlight-link">contact</a>. 
+        I hope you enjoy your stay!
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.home-intro {
+  background: linear-gradient(135deg, #fefefe, #e6f0ff);
+  padding: 3rem 1rem;
+  border-radius: 16px;
+  max-width: 900px;
+  margin: 2rem auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.intro-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.intro-image img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;         /* fills the container */
+  object-position: top;      /* keeps top visible, crops bottom */
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.intro-text {
+  flex: 1;
+  min-width: 250px;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.highlight {
+  color: #005582;
+  font-weight: 600;
+}
+
+/* Style for linked keywords */
+.highlight-link {
+  color: #005582;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.highlight-link:hover {
+  color: #003f5c;
+}
+
+@media (max-width: 800px) {
+  .intro-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+</style>
+
+</MainLayout>

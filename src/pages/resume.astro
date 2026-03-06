@@ -1,0 +1,118 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Resume | Eric Fagan">
+  <style>
+    .resume-section {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .experience-item {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: #f9f9f9; /* Optional: light background for the 'card' */
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* This creates the alternating effect */
+    .experience-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .text-content {
+      flex: 1;
+    }
+
+    .image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .experience-image {
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    /* Responsive: Stack them on mobile */
+    @media (max-width: 768px) {
+      .experience-item, .experience-item:nth-child(even) {
+        flex-direction: column;
+      }
+      .experience-image {
+        max-width: 100%;
+      }
+    }
+  </style>
+
+  <h2 style="text-align:center;">Resume</h2>
+
+  <h3>Education</h3>
+  <div class="experience-item">
+    <div class="text-content">
+      <strong>William & Mary – Raymond A. Mason Business School</strong><br>
+      Major: Accounting | Minor: Data Science<br>
+      Anticipated Graduation: Dec 2026<br>
+      Anticipated Macc Graduation: Dec 2027
+    </div>
+    <div class="image-container">
+      <img src="/wm-campus.jpg" alt="William & Mary" class="experience-image" />
+    </div>
+  </div>
+
+  <h3>Professional Experience</h3>
+
+    <div class="experience-item">
+  <div class="image-container">
+    <img src="/dominion-energy.jpg" alt="Dominion Energy" class="experience-image" />
+  </div>
+
+  <div class="text-content">
+    <strong>Dominion Energy – Accounting Intern</strong><br>
+    Richmond, VA | June 2025 – Present
+    <ul>
+      <li>Prepared ARO and CAPEX statements for various energy sectors</li>
+      <li>Utilized Microsoft Excel and VBA to build and simplify company processes</li>
+      <li>Accepted internship return offer for Summer 2026</li>
+    </ul>
+  </div>
+</div>
+
+  <div class="resume-section">
+    <div class="experience-item">
+      <div class="text-content">
+        <strong>KPMG – Incoming Audit Intern</strong><br>
+        Richmond, VA | Starting May 2027<br>
+        Selected for Global Advantage Program – Budapest, Hungary (Summer 2026)
+      </div>
+      <div class="image-container">
+        <img src="/kpmg-office.jpg" alt="KPMG Office" class="experience-image" />
+      </div>
+    </div>
+
+    
+    <div class="experience-item">
+      <div class="text-content">
+        <strong>Lifeguard / Lifeguard Manager</strong><br>
+        Richmond, VA | 2021 – 2024
+        <ul>
+          <li>Managed a staff of 25 at a facility with 700 members</li>
+          <li>Voted Lifeguard of the Year by upper management in 2024</li>
+        </ul>
+      </div>
+      <div class="image-container">
+        <img src="/lifeguard.jpg" alt="Lifeguarding" class="experience-image" />
+      </div>
+    </div>
+  </div>
+</MainLayout>

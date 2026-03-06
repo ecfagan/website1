@@ -1,0 +1,118 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Contact | Eric Fagan">
+
+<h2>Contact</h2>
+
+<div class="contact-container">
+  <div class="contact-text">
+    <p>Connect with me on LinkedIn!</p>
+  </div>
+
+  <div class="contact-image">
+    <a href="https://www.linkedin.com/in/eric-fagan-874762291" target="_blank" rel="noopener noreferrer">
+      <img src="/linkedin3.jpg" alt="Eric Fagan LinkedIn" />
+    </a>
+  </div>
+</div>
+
+<!-- Open Question Form -->
+<h3 style="margin-top:40px;">Have a Question?</h3>
+
+<form class="contact-form" action="https://formspree.io/f/mreyzwbl" method="POST">
+  <label for="name">Your Name:</label>
+  <input type="text" id="name" name="name" required>
+
+  <label for="email">Your Email:</label>
+  <input type="email" id="email" name="_replyto" required>
+
+  <label for="message">Your Question:</label>
+  <textarea id="message" name="message" rows="5" required></textarea>
+
+  <button type="submit">Send</button>
+</form>
+
+</MainLayout>
+
+<style>
+/* Contact section (LinkedIn) */
+.contact-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.contact-text p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.contact-image img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.contact-image img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-text {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Form styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin-top: 1.5rem;
+}
+
+.contact-form label {
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.contact-form button {
+  padding: 12px 20px;
+  background-color: #0073b1; /* LinkedIn blue for style */
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.contact-form button:hover {
+  background-color: #005582;
+}
+</style>

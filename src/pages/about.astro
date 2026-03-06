@@ -1,0 +1,94 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import LatestStrava from "../components/strava.astro";
+---
+
+<MainLayout title="About | Eric Fagan">
+
+<h2>About Me</h2>
+
+<div class="about-section">
+
+  <div class="about-image">
+    <img src="/team.jpg" alt="Eric Fagan with Cross Country Team">
+  </div>
+
+  <div class="about-text">
+    <strong>Division I Cross Country & Track & Field</strong><br>
+    At William & Mary, I am a member of the<br>
+Cross Country and Track & Field team.<br><br>
+
+I compete in events ranging from the 800m<br>
+to cross country 8k races, with my focus<br>
+primarily on the 1500m and the 3000m Steeplechase.<br><br>
+
+If you'd like to follow along, my latest activities <br>
+are listed at the bottom of this page!
+    </b>
+  </div>
+
+</div>
+
+
+<div class="about-section">
+
+  <div class="about-image">
+    <img src="/fraternity.jpg" alt="Sigma Phi Epsilon">
+  </div>
+
+  <div class="about-text">
+    <strong>Sigma Phi Epsilon (Virginia Delta Chapter)</strong><br>
+    Outside of running, I am also a member of Sigma Phi <br>
+    Epsilon and enjoy frequently attending chapter events<br>
+     and engaging with the fraternity’s philanthropy!
+  </div>
+
+</div>
+
+
+<h2 style="margin-top:40px;">Follow Along With My Training:</h2>
+
+<LatestStrava />
+
+</MainLayout>
+
+<style>
+
+.about-section{
+  display:flex;
+  gap:40px;
+  align-items:center;
+  margin-top:30px;
+}
+
+.about-image img{
+  width:420px;
+  max-width:100%;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+}
+
+.about-text{
+  font-size:1rem;
+  line-height:1.6;
+}
+
+.about-text strong{
+  font-size:1.15rem;
+}
+
+/* Mobile layout */
+@media (max-width: 800px){
+
+  .about-section{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .about-image img{
+    width:100%;
+  }
+
+}
+
+</style>

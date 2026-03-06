@@ -1,0 +1,193 @@
+---
+// 1. Setup - Pull keys from your .env
+const clientID = import.meta.env.STRAVA_CLIENT_ID;
+const clientSecret = import.meta.env.STRAVA_CLIENT_SECRET;
+const refreshToken = import.meta.env.STRAVA_REFRESH_TOKEN;
+
+type StravaActivity = {
+  name: string;
+  type: string;
+  miles: string;
+  kilometers: string;
+  date: string;
+  link: string;
+};
+
+let activitiesList: StravaActivity[] = [];
+
+try {
+  // 2. Refresh the Access Token
+  const tokenResponse = await fetch('https://www.strava.com/oauth/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      client_id: clientID,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    }),
+  });
+
+  const tokenData = await tokenResponse.json();
+
+  if (tokenData.access_token) {
+    // 3. Fetch the latest 3 activities
+    const activityResponse = await fetch(
+      'https://www.strava.com/api/v3/athlete/activities?per_page=3',
+      {
+        headers: { Authorization: `Bearer ${tokenData.access_token}` },
+      }
+    );
+
+    const activities = await activityResponse.json();
+
+    if (Array.isArray(activities) && activities.length > 0) {
+      activitiesList = activities.map((activity) => ({
+        name: activity.name,
+        type: activity.type,
+        miles: (activity.distance * 0.000621371).toFixed(2),
+        kilometers: (activity.distance / 1000).toFixed(2),
+        date: new Date(activity.start_date_local).toLocaleDateString(
+          'en-US',
+          {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          }
+        ),
+        link: `https://www.strava.com/activities/${activity.id}`,
+      }));
+    }
+  }
+} catch (error) {
+  console.error("Error fetching Strava data:", error);
+}
+---
+
+<div class="strava-container">
+  {activitiesList.length > 0 ? (
+    <div class="strava-grid">
+      {activitiesList.map((activity) => (
+        <div class="strava-card">
+          <div class="strava-header">
+            <span class="activity-type">{activity.type}</span>
+            <span class="activity-date">{activity.date}</span>
+          </div>
+
+          <h3 class="activity-title">{activity.name}</h3>
+
+          <div class="activity-stats">
+            <span class="stat-value">{activity.miles}</span>
+            <span class="stat-label">miles</span>
+          </div>
+
+          <a
+            href={activity.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="strava-link"
+          >
+            View on Strava
+          </a>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="strava-fallback">
+      <p>No recent activity found. Checking for the next adventure!</p>
+    </div>
+  )}
+</div>
+
+<style>
+  .strava-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+  }
+
+  .strava-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .strava-card {
+    background: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+
+  .strava-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .strava-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .activity-type {
+    background: #fc4c02;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+
+  .activity-date {
+    color: #666;
+    font-size: 0.8rem;
+  }
+
+  .activity-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #222;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .strava-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: #fc4c02;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .strava-link:hover {
+    text-decoration: underline;
+  }
+
+  .strava-fallback {
+    text-align: center;
+    padding: 2rem;
+    border: 2px dashed #ddd;
+    border-radius: 16px;
+    color: #888;
+  }
+
+  @media (max-width: 800px) {
+    .strava-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
